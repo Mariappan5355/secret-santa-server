@@ -87,19 +87,28 @@ export class SecretSantaController {
 }
 
 
-  private generateCSV(assignments: any[]): string {
-    const fields = ['Employee_Name', 'Employee_EmailID', 'Secret_Child_Name', 'Secret_Child_EmailID'];
-    const parser = new Parser({ fields });
-    const csv = parser.parse(assignments.map(a => ({
+private generateCSV(assignments: any[]): string {
+  const fields = ['Employee_Name', 'Employee_EmailID', 'Secret_Child_Name', 'Secret_Child_EmailID'];
+  const parser = new Parser({ fields });
+
+  const csv = parser.parse(assignments.map(a => ({
       Employee_Name: a.employeeName,
       Employee_EmailID: a.employeeEmailId,
       Secret_Child_Name: a.secretChildName,
       Secret_Child_EmailID: a.secretChildEmailId
-    })));
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const filePath = path.join(__dirname, '../../output/SecretSantaAssignments.csv');
-    fs.writeFileSync(filePath, csv);
-    return filePath;
+  })));
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const outputDir = path.join(__dirname, '../../output');
+  const filePath = path.join(outputDir, 'SecretSantaAssignments.csv');
+
+  if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
   }
+
+  fs.writeFileSync(filePath, csv);
+
+  return filePath;
+}
 }
