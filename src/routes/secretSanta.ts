@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import multer from 'multer';
-import { SecretSantaController } from '../controllers/SecretSantaController';
+import { SecretSantaController } from '../controllers/SecretSantaController.js';
 
 const router = Router();
 const upload = multer({ storage: multer.memoryStorage() });

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import secretSantaRoutes from './routes/secretSanta';
-import connectDB from './config/db';
+import secretSantaRoutes from './routes/secretSanta.js';
+import connectDB from './config/db.js';
 
 const app = express();
 
